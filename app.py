@@ -29,6 +29,7 @@ def init_db():
                     banned_until TIMESTAMP DEFAULT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+                DROP TABLE IF EXISTS messages;
                 CREATE TABLE IF NOT EXISTS tokens (
                     id SERIAL PRIMARY KEY,
                     user_id INTEGER NOT NULL,
