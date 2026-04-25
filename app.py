@@ -37,15 +37,20 @@ def init_db():
                 );
                 CREATE TABLE IF NOT EXISTS messages (
                     id SERIAL PRIMARY KEY,
-                    sender_id INTEGER NOT NULL,
-                    sender_name TEXT NOT NULL,
-                    receiver_id INTEGER NOT NULL,
+                    sender_id INTEGER,
+                    sender_name TEXT,
+                    receiver_id INTEGER,
                     content TEXT,
                     media_type TEXT DEFAULT NULL,
                     media_data TEXT DEFAULT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
             ''')
+            cur.execute('ALTER TABLE messages ADD COLUMN IF NOT EXISTS receiver_id INTEGER;')
+            cur.execute('ALTER TABLE messages ADD COLUMN IF NOT EXISTS sender_id INTEGER;')
+            cur.execute('ALTER TABLE messages ADD COLUMN IF NOT EXISTS sender_name TEXT;')
+            cur.execute('ALTER TABLE messages ADD COLUMN IF NOT EXISTS media_type TEXT;')
+            cur.execute('ALTER TABLE messages ADD COLUMN IF NOT EXISTS media_data TEXT;')
         conn.commit()
 
 # ── Nettoyage auto après 24h ──────────────────────────────────────────────────
