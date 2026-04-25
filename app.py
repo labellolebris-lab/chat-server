@@ -352,6 +352,12 @@ def admin_unban(user_id):
         conn.commit()
     return redirect('/admin')
 
-if __name__ == '__main__':
+# Crée les tables au démarrage automatiquement
+try:
     init_db()
+    print("Base de données initialisée !")
+except Exception as e:
+    print(f"Erreur init DB: {e}")
+
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
